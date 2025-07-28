@@ -49,5 +49,22 @@ class PostgreSQL():
             if client is not None:
                 break
             attemps -= 1
-        return client        
+        return client
+    #--------------------------------------------------------------
+    @VerifyConnection
+    def getdata(self, sql:str, values:tuple=())-> list:
+        if self.client is None:
+            return []
+        
+        cursor = None
+        try:
+            cursor = (self.client).cursor()
+            cursor.execute(sql, values)
+            return cursor.fetchall()
+        except Exception as e:
+            print(e)
+            return []
+        finally:
+            if cursor:
+                cursor.close()    
 #------------------------------------------------------------------
