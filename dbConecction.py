@@ -86,4 +86,25 @@ class PostgreSQL():
         finally:
             if cursor:
                 cursor.close()
+    #--------------------------------------------------------------
+    @VerifyConnection
+    def setDataReturning(self, sql:str, values:tuple=())-> list:
+        if self.client is None:
+            return []
+        
+        cursor = None
+        try:
+            cursor = (self.client).cursor()
+            cursor.execute(sql, values)
+            data = cursor.fetchall()
+            (self.client).commit()
+            return data
+        except Exception as e:
+            print(e)
+            (self.client).rollback()
+            return []
+        finally:
+            if cursor:
+                cursor.close()
+    #--------------------------------------------------------------
 #------------------------------------------------------------------
