@@ -26,4 +26,14 @@ class PostgreSQL():
         except Exception as e:
             print(e)
             return None
+    #--------------------------------------------------------------
+    def _reconect(self)-> (object|None):
+        attemps = 3
+        while attemps > 0:
+            time.sleep(1)
+            client = self.__startConnection()
+            if client is not None:
+                break
+            attemps -= 1
+        return client        
 #------------------------------------------------------------------
