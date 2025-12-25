@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 #------------------------------------------------------------------
 load_dotenv()
 #------------------------------------------------------------------
-class SqLite(AbsDb):
+class SQLite(AbsDb):
     def _startConnection(self)-> (object|None):
         db = os.getenv("DATABASE")
         if db is None:
